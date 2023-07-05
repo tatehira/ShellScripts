@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# Função para exibir a barra de carregamento
 function exibir_barra_carregamento() {
     local progresso=0
     local tempo_espera=1
@@ -14,23 +12,15 @@ function exibir_barra_carregamento() {
 
     echo ""
 }
-
 # Solicitar ao usuário o valor do "yourdomain"
 read -p "Digite o valor de 'yourdomain': " yourdomain
-
 clear
 echo "Vamos começar a instalação!"
-
 exibir_barra_carregamento 5
-
 apt update && apt upgrade -y
 apt install apache2 php -y
-
 clear
-echo "Siga a (1 - ETAPA) do arquivo etapas.txt"
 exibir_barra_carregamento 5
-
-# Define o conteúdo do arquivo de configuração
 CONF_CONTENT="<VirtualHost *:80>
 ServerAdmin admin@$yourdomain
 DocumentRoot /var/www/html/moodle/
@@ -46,11 +36,7 @@ ErrorLog \${APACHE_LOG_DIR}/moodle.error.log
 CustomLog \${APACHE_LOG_DIR}/moodle.access.log combined
 
 </VirtualHost>"
-
-# Cria o arquivo de configuração e adiciona o conteúdo
 echo "$CONF_CONTENT" | sudo tee /etc/apache2/sites-available/moodle.$yourdomain.conf
-
-# Sai do editor nano (caso esteja aberto)
 if pgrep -x "nano" >/dev/null; then
     echo "Saindo do editor Nano..."
     sleep 1
@@ -66,24 +52,16 @@ sudo a2enmod rewrite
 systemctl restart apache2
 sudo a2ensite moodle.$yourdomain
 systemctl reload apache2
-
 clear
-echo "Siga a (2 - ETAPA) do arquivo etapas.txt"
 exibir_barra_carregamento 8
-
 NEW_VALUE="7000"
 PHP_INI_FILE="/etc/php/7.4/apache2/php.ini"
 sudo sed -i "s/^\(max_input_vars = \).*/\1$NEW_VALUE/" "$PHP_INI_FILE"
 echo "O valor de 'max_input_vars' foi alterado para $NEW_VALUE no arquivo php.ini."
 systemctl restart apache2
-
 apt install mariadb-server -y
-
 clear
-echo "Siga a (3 - ETAPA) do arquivo etapas.txt"
 exibir_barra_carregamento 8
-
-# Executa o comando mysql
 mysql <<EOF
 CREATE DATABASE moodle_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER 'moodle_user'@'localhost' IDENTIFIED BY 'm0d1fyth15';
@@ -92,20 +70,15 @@ FLUSH PRIVILEGES;
 \q
 EOF
 echo "Os comandos SQL foram executados com sucesso no banco de dados."
-
 apt install git graphviz aspell ghostscript php7.4-{pspell,curl,gd,intl,mysql,xml,xmlrpc,ldap,zip,soap,mbstring} -y
-
 clear
 sudo apt install git -y
-
 clear
 cd /opt
 git clone https://github.com/moodle/moodle
-
 clear
 echo "Fazendo download do Moodle via Git"
 exibir_barra_carregamento 8
-
 cd moodle/
 git branch --track MOODLE_400_STABLE origin/MOODLE_400_STABLE
 git checkout MOODLE_400_STABLE
@@ -113,7 +86,6 @@ cp -R /opt/moodle/ /var/www/html/moodle/
 mkdir /var/www/moodledata
 chmod -R 777 /var/www/moodledata/
 chown -R www-data. /var/www/moodledata/ /var/www/html/moodle/
-
 clear
 ip=$(hostname -I | awk '{print $1}')
 echo "Acesse o Moodle pelo seguinte link: https://$ip/moodle"
