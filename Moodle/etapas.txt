@@ -1,0 +1,35 @@
+			1 - ETAPA
+- Copie e cole no arquivo que será aberto
+--------------------------------------------------------------------------------------
+<VirtualHost *:80>
+ServerAdmin admin@moodle.yourdomain.com
+DocumentRoot /var/www/html/moodle/
+ServerName moodle.yourdomain.com
+
+<Directory /var/www/html/moodle/>
+Options +FollowSymlinks
+AllowOverride All
+Require all granted
+</Directory>
+
+ErrorLog ${APACHE_LOG_DIR}/moodle.error.log
+CustomLog ${APACHE_LOG_DIR}/moodle.access.log combined
+
+</VirtualHost>
+
+======================================================================================
+			2 - ETAPA
+--------------------------------------------------------------------------------------
+- Procure com ^W o arquivo max_input_vars
+e altere para 7000
+
+
+======================================================================================
+			3 - ETAPA
+- Copie e cole cada linha por vez no banco de dados
+--------------------------------------------------------------------------------------
+CREATE DATABASE moodle_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
+CREATE USER moodle_user@'localhost' IDENTIFIED BY 'm0d1fyth15';
+GRANT ALL on moodle_db.* to moodle_user@localhost;
+FLUSH PRIVILEGES;
+\q
