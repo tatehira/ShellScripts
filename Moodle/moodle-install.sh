@@ -18,7 +18,6 @@ ErrorLog \${APACHE_LOG_DIR}/moodle.error.log
 CustomLog \${APACHE_LOG_DIR}/moodle.access.log combined
 
 </VirtualHost>"
-echo "$CONF_CONTENT" | sudo tee /etc/apache2/sites-available/moodle.yourdomain.com.conf
 echo "$CONF_CONTENT" | sudo tee /etc/apache2/sites-available/moodle.$yourdomain.conf
 if pgrep -x "nano" >/dev/null; then
     echo "Saindo do editor Nano..."
