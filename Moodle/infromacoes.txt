@@ -1,0 +1,8 @@
+Instalado no vs code: (Remote - SSH)
+Local onde está os arquivos de personalização: 
+	- /var/www/html/moodle/theme/TemaBaixado/
+
+Alteração do PHP:
+upload_max_filesize (alterado para 1024M)
+
+O admin/cli/cron.php deve ser executado a cada 1 minuto, e nunca foi executado. 
