@@ -1,28 +1,8 @@
 !#/bin/bash/
 clear
-echo -n "Vamos começar a instalação!" 
-for i in $(seq 1 1 3);
-do
-	echo -n " ." 
-	sleep 01
-	echo -ne "" 
-done 
-apt update && apt upgrade -y
-apt install apache2 php -y
-clear
-for i in $(seq 1 1 3);
-do
-	echo -n " ." 
-	sleep 01
-	echo -ne "" 
-done 
-clear 
-#!/bin/bash
 read -p "Digite o valor de 'yourdomain': " yourdomain
 clear
-apt update && apt upgrade -y
-apt install apache2 php -y
-clear
+apt install apache2 php && apt update && apt upgrade -y
 CONF_CONTENT="<VirtualHost *:80>
 ServerAdmin admin@moodle.yourdomain.com
 DocumentRoot /var/www/html/moodle/
@@ -46,7 +26,6 @@ if pgrep -x "nano" >/dev/null; then
     tmux send-keys -t 0.0 C-x
 fi
 echo "Arquivo de configuração criado com sucesso em /etc/apache2/sites-available/moodle.yourdomain.com.conf"
-clear
 apt-get install mlocate -y
 updatedb
 a2enmod rewrite
