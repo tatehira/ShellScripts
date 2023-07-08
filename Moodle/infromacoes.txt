@@ -1,8 +1,16 @@
-Instalado no vs code: (Remote - SSH)
-Local onde está os arquivos de personalização: 
-	- /var/www/html/moodle/theme/TemaBaixado/
 
-Alteração do PHP:
-upload_max_filesize (alterado para 1024M)
+<VirtualHost *:80>
+ServerAdmin admin@$domain
+DocumentRoot /var/www/html/moodle/
+ServerName $domain
 
-O admin/cli/cron.php deve ser executado a cada 1 minuto, e nunca foi executado. 
+<Directory /var/www/html/moodle/>
+Options +FollowSymlinks
+AllowOverride All
+Require all granted
+</Directory>
+
+ErrorLog \${APACHE_LOG_DIR}/moodle.error.log
+CustomLog \${APACHE_LOG_DIR}/moodle.access.log combined
+
+</VirtualHost>
