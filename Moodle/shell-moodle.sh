@@ -1,4 +1,6 @@
 !#/bin/bash/
+clear
+read -p "Enter the domain name for Moodle (e.g., moodle.yourdomain.com): " domain
 echo -n "Vamos começar a instalação!" 
 for i in $(seq 1 1 3);
 do
@@ -6,9 +8,8 @@ do
 	sleep 01
 	echo -ne "" 
 done 
-read -p "Enter the domain name for Moodle (e.g., moodle.yourdomain.com): " domain
 apt update && apt upgrade -y
-apt install apache2 git php -y
+apt install apache2 git php7.4 -y
 cat > /etc/apache2/sites-available/$domain.conf <<EOF
 <VirtualHost *:80>
 ServerAdmin admin@$domain
@@ -26,7 +27,7 @@ CustomLog \${APACHE_LOG_DIR}/moodle.access.log combined
 
 </VirtualHost>
 EOF
-apt-get install mlocate
+apt-get install mlocate -y
 updatedb
 locate a2enmod
 sudo a2enmod rewrite
