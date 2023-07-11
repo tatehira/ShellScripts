@@ -5,15 +5,15 @@ Bem-vindo ao meu repositório de Scripts Shell! Este repositório contém uma co
 ## Uso
 
 1. Clone este repositório para a sua máquina local usando o seguinte comando:
-git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git
+´´git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git
 
 
 2. Navegue até o diretório do repositório clonado:
-cd repositorio-shell-script
+´´cd repositorio-shell-script
 
 
 3. Escolha o script que deseja usar e torne-o executável, se necessário:
-chmod +x nome-do-script.sh
+´´chmod +x nome-do-script.sh
 
 
 4. Execute o script com privilégios administrativos:
