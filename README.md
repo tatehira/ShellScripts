@@ -5,7 +5,7 @@ Bem-vindo ao meu repositório de Scripts Shell! Este repositório contém uma co
 ## Uso
 
 1. Clone este repositório para a sua máquina local usando o seguinte comando:
-´git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git´
+`git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git`
 
 
 2. Navegue até o diretório do repositório clonado:
