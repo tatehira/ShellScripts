@@ -9,19 +9,26 @@ Bem-vindo ao meu repositório de Scripts Shell! Este repositório contém uma co
 `git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git`
 
 
+
 3. Navegue até o diretório do repositório clonado:
+   
 `cd repositorio-shell-script`
 
 
-4. Escolha o script que deseja usar e torne-o executável, se necessário:
+
+5. Escolha o script que deseja usar e torne-o executável, se necessário:
+   
 `chmod +x nome-do-script.sh`
 
 
-5. Execute o script com privilégios administrativos:
+
+7. Execute o script com privilégios administrativos:
+   
 `sudo ./nome-do-script.sh`
 
 
-6. Siga as instruções e prompts fornecidos pelo script para concluir a instalação do sistema ou aplicativo desejado.
+
+9. Siga as instruções e prompts fornecidos pelo script para concluir a instalação do sistema ou aplicativo desejado.
 
 ## Contribuições
 
