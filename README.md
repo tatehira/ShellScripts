@@ -6,13 +6,13 @@ Bem-vindo ao meu repositório de Scripts Shell! Este repositório contém uma co
 
 1. Clone este repositório para a sua máquina local usando o seguinte comando:]
    
-`git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git`
+`git clone https://github.com/tatehira/ShellScripts`
 
 
 
 3. Navegue até o diretório do repositório clonado:
    
-`cd repositorio-shell-script`
+`cd ShellScripts`
 
 
 
