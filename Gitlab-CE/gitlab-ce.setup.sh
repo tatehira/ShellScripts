@@ -41,7 +41,7 @@ while true; do
             echo "==============================================================="
             echo "login: root"
             echo "senha: $password"
-            sleep 5
+            sleep 20
             ;;
         2)
             clear
