@@ -1,58 +1,37 @@
-!#/bin/bash/
-clear
-read -p "Enter the domain name for Moodle (e.g., moodle.yourdomain.com): " domain
-echo -n "Vamos começar a instalação!" 
-for i in $(seq 1 1 3);
-do
-	echo -n " ." 
-	sleep 01
-	echo -ne "" 
-done 
-apt update && apt upgrade -y
-apt install apache2 git php7.4 -y
-cat > /etc/apache2/sites-available/$domain.conf <<EOF
-<VirtualHost *:80>
-ServerAdmin admin@$domain
-DocumentRoot /var/www/html/moodle/
-ServerName $domain
+#!/bin/bash
 
-<Directory /var/www/html/moodle/>
-Options +FollowSymlinks
-AllowOverride All
-Require all granted
-</Directory>
+# Atualizar o sistema
+sudo apt update
+sudo apt upgrade -y
 
-ErrorLog \${APACHE_LOG_DIR}/moodle.error.log
-CustomLog \${APACHE_LOG_DIR}/moodle.access.log combined
+# Instalar os pacotes necessários
+sudo apt install apache2 mariadb-server unzip php php-cli php-gd php-curl php-intl php-mbstring php-xml php-zip -y
 
-</VirtualHost>
-EOF
-apt-get install mlocate -y
-updatedb
-locate a2enmod
-sudo a2enmod rewrite
-sudo sudo a2ensite $domain.conf
-systemctl reload apache2
-sed -i 's/^max_input_vars = .*/max_input_vars = 7000/' /etc/php/7.4/apache2/php.ini
-systemctl restart apache2
-apt install mariadb-server -y
-mysql <<EOF
-CREATE DATABASE moodle_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'moodle_user'@'localhost' IDENTIFIED BY 'm0d1fyth15';
-GRANT ALL ON moodle_db.* TO 'moodle_user'@'localhost';
-FLUSH PRIVILEGES;
-\q
-EOF
-apt install git graphviz aspell ghostscript php7.4-{pspell,curl,gd,intl,mysql,xml,xmlrpc,ldap,zip,soap,mbstring} -y
-cd /opt
+# Configurar o banco de dados
+sudo mysql_secure_installation
+
+# Criar um banco de dados e um usuário para o Moodle
+sudo mysql -u root -p -e "CREATE DATABASE moodle;"
+sudo mysql -u root -p -e "GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'localhost' IDENTIFIED BY '12345678';"
+sudo mysql -u root -p -e "FLUSH PRIVILEGES;"
+
+# Baixar o pacote do Moodle 
 git clone https://github.com/moodle/moodle.git
-cd moodle/
-git branch --track MOODLE_400_STABLE origin/MOODLE_400_STABLE
-git checkout MOODLE_400_STABLE
-cp -R /opt/moodle/ /var/www/html/moodle/
-mkdir /var/www/moodledata
-chmod -R 777 /var/www/moodledata/
-chown -R www-data. /var/www/moodledata/ /var/www/html/moodle/
+
+# Descompactar o pacote do Moodle
+sudo mv moodle /var/www/html/
+sudo mkdir /var/moodledata
+
+# Configurar as permissões
+sudo chown -R www-data /var/moodledata
+sudo chmod -R 777 /var/moodledata
+sudo chown -R www-data:www-data /var/www/html/moodle/
+sudo chmod -R 777 /var/www/html/moodle/
+
+# Reiniciar o serviço do Apache
+sudo systemctl restart apache2
+
 clear
-ip=$(hostname -I | awk '{print $1}')
-echo "Acesse o Moodle pelo seguinte link: https://$ip/moodle"
+# Acessar o Moodle pelo navegador
+echo "Acesse o Moodle pelo navegador e siga as instruções de instalação."
+
