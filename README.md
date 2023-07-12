@@ -4,23 +4,31 @@ Bem-vindo ao meu repositório de Scripts Shell! Este repositório contém uma co
 
 ## Uso
 
-1. Clone este repositório para a sua máquina local usando o seguinte comando:
-git clone https://github.com/seu-nome-de-usuário/repositorio-shell-script.git
+1. Clone este repositório para a sua máquina local usando o seguinte comando:]
+   
+`git clone https://github.com/tatehira/ShellScripts`
 
 
-2. Navegue até o diretório do repositório clonado:
-cd repositorio-shell-script
+
+3. Navegue até o diretório do repositório clonado:
+   
+`cd ShellScripts`
 
 
-3. Escolha o script que deseja usar e torne-o executável, se necessário:
-chmod +x nome-do-script.sh
+
+5. Escolha o script que deseja usar e torne-o executável, se necessário:
+   
+`chmod +x nome-do-script.sh`
 
 
-4. Execute o script com privilégios administrativos:
-sudo ./nome-do-script.sh
+
+7. Execute o script com privilégios administrativos:
+   
+`sudo ./nome-do-script.sh`
 
 
-5. Siga as instruções e prompts fornecidos pelo script para concluir a instalação do sistema ou aplicativo desejado.
+
+9. Siga as instruções e prompts fornecidos pelo script para concluir a instalação do sistema ou aplicativo desejado.
 
 ## Contribuições
 
