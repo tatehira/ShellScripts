@@ -1,18 +1,34 @@
 #!/bin/bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install apache2 mysql-client mysql-server php7.4 libapache2-mod-php7.4 -y
-sudo apt install sudo php7.4-cli php7.4-gd php7.4-curl php7.4-intl php7.4-mbstring php7.4-xml php7.4-zip graphviz aspell ghostscript clamav php7.4-pspell php7.4-mysql php7.4-xmlrpc php7.4-ldap  php7.4-soap -y
-sudo mysql_secure_installation
-sudo mysql -u root -p -e "CREATE DATABASE moodle;"
-sudo mysql -u root -p -e "GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'localhost' IDENTIFIED BY '12345678';"
-sudo mysql -u root -p -e "FLUSH PRIVILEGES;"
-cd /opt
-git clone https://github.com/moodle/moodle.git
+sudo apt install nmap ufw wget git -y
+sudo apt install apache2 mariadb-server php libapache2-mod-php php-mysql php-gd php-xml php-curl php-intl php-zip php-xmlrpc php-mbstring php-soap
+clear
+sudo mysql -u root -p20232023
+sudo mysql -u root -p -e "CREATE DATABASE moodle_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER 'moodle_user'@'localhost' IDENTIFIED BY 'senha_do_moodle'; GRANT ALL ON moodle_db.* TO 'moodle_user'@'localhost'; FLUSH PRIVILEGES;"
+wget https://download.moodle.org/download.php/direct/stable402/moodle-latest-402.tgz
+tar -zxvf moodle-latest-402.tgz
 sudo mv moodle /var/www/html/
-sudo mkdir /var/moodledata
-sudo chown -R www-data /var/moodledata
-sudo chown -R www-data:www-data /var/www/html/moodle/
-sudo chmod -R 777 /var/moodledata /var/www/html/moodle/
+sudo chmod 777 /var/www
+sudo mkdir /var/www/moodledata
+sudo chown -R www-data:www-data /var/www/html/moodle/ /var/www/moodledata
+sudo chmod -R 755 /var/www/html/moodle/
+sudo chmod 777 /var/www/moodledata
+echo "<VirtualHost *:80>
+    ServerAdmin seu_email
+    DocumentRoot /var/www/html/moodle
+    ServerName seu_domínio
+
+    <Directory /var/www/html/moodle>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>" | sudo tee /etc/apache2/sites-available/moodle.conf > /dev/null
+echo "max_input_vars = 7000" >> /etc/php/8.2/apache2/php.ini
+sudo a2ensite moodle.conf
 sudo systemctl restart apache2
 clear
 ip=$(hostname -I | awk '{print $1}')
