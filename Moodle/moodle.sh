@@ -53,5 +53,6 @@ sudo a2ensite moodle.conf
 sudo systemctl restart apache2
 
 # Limpa o console e exibe na tela o IP do servidor
+clear
 ip=$(hostname -I | awk '{print $1}')
-echo "Acesse o moodle pelo seguinte link: https://$ip/moodle"
+echo "Acesse o moodle pelo seguinte link: http://$ip/moodle"
