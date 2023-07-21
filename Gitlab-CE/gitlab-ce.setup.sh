@@ -17,6 +17,7 @@ while true; do
             sudo systemctl stop apache2
             sudo apt update && sudo apt full-upgrade -y
             sudo apt install curl openssh-server ca-certificates tzdata perl -y
+            touch /etc/gitlab/RootPassword.txt
             curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
             ip=$(hostname -I | awk '{print $1}')
             export GITLAB_URL="http://$ip"
@@ -41,6 +42,7 @@ while true; do
             echo "==============================================================="
             echo "login: root"
             echo "senha: $password"
+            $password >> /etc/gitlab/RootPassword.txt
             sleep 20
             ;;
         2)
